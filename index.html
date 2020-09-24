@@ -20,7 +20,18 @@
         cube.position.set(0,0,-3);
         scene.add(cube);
 
+	var animate = function(){
+	requestAnimationFrame(animate);
 	renderer.render(scene,camera);
+	}
+	animate();
+
+	//controls
+	camera.position.z = 0.5;
+	var controls = new MapControls(camera, renderer.domElement);
+	controls.enableZoom = false;
+	controls.panSpeed = 4;
+	controls.keyPanSpeed = 20;
     </script>
   <body>
 </html>
