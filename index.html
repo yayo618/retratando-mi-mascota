@@ -7,10 +7,12 @@
 	<button onclick="stop(),moverDer=true">mover der</button>
 	<button onclick="stop(),moverAde=true">mover ade</button>
 	<button onclick="stop(),moverAtr=true">mover atr</button>
+	<button onclick="stop(),rotaIz=true">gira izq</button>
+	<button onclick="stop(),rotaDe=true">gira der</button>
     </div>
     <script src="../threejs/three.min.js"></script>
     <script>
-	var moverIzq,moverDer,moverAde,moverAtr;
+	var moverIzq,moverDer,moverAde,moverAtr,rotaIz,rotaDe;
 	var clock = new THREE.Clock();
 
 	var scene, camera, renderer;
@@ -44,6 +46,8 @@
 	  moverDer=false;
 	  moverAde=false;
 	  moverAtr=false;
+	  rotaIz=false;
+	  rotaDe=false;
 	}
 
 	var animate = function(){
@@ -60,6 +64,8 @@
 	    if (moverAtr){
 		    camera.position.z += 0.01;
 	    }
+	    if (rotaIz){camera.rotation.y += Math.PI*0.002;}
+	    if (rotaDe){camera.rotation.y -= Math.PI*0.002;}
 	  renderer.render(scene,camera);
 	}
 	animate();
