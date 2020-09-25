@@ -3,10 +3,12 @@
   <body>
     <div>
 	<button onclick="mover=true">mover izq</button>
+	<button onclick="mover=false,mover2=false">stop</button>
+	<button onclick="mover2=true">mover der</button>
     </div>
     <script src="../threejs/three.min.js"></script>
     <script>
-	var mover=false;
+	var mover,mover2;
 	var clock = new THREE.Clock();
 
 	var scene, camera, renderer;
@@ -41,7 +43,9 @@
 	    if (mover){
 		    camera.position.x -= 0.01;
 	    }
-	  
+	    if (mover2){
+		    camera.position.x += 0.01;
+	    }
 	  renderer.render(scene,camera);
 	}
 	animate();
