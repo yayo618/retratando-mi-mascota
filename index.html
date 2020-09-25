@@ -17,14 +17,56 @@
 	var cube = new THREE.Mesh(
                 new THREE.BoxGeometry(0.5,0.5,0.5),
         new THREE.MeshBasicMaterial({color:0x00ff00}));
-        cube.position.set(0,0,0);
         scene.add(cube);
+	var cube2 = new THREE.Mesh(
+                new THREE.BoxGeometry(0.5,0.5,0.5),
+        new THREE.MeshBasicMaterial({color:0x00ff00}));
+	cube2.position.set(-2.5,0,-8);
+
+	//pared1
+	var pared1 = new THREE.Mesh(
+                new THREE.PlaneGeometry(5,3),
+                new THREE.MeshBasicMaterial({color:0xffffff})
+        );
+	pared1.position.set(-2.5,0,-3);
+	//pared2
+	var pared2 = new THREE.Mesh(
+                new THREE.PlaneGeometry(5,3),
+                new THREE.MeshBasicMaterial({color:0xffffff})
+        );
+	pared2.position.set(0,0,-5.5);
+	pared2.rotation.y = Math.PI/2;
+
+	var gallery = new THREE.Group();
+	gallery.add(pared1,pared2,cube2);
+	scene.add(gallery);
 
 	var animate = function(){
 	requestAnimationFrame(animate);
 	renderer.render(scene,camera);
+	
+	  if (Math.abs(camera.position.z - cube2.position.z) < 5){
+	    cube.position.z = camera.position.z +3;
+	  }
+	/*
+	if (Math.abs(camera.position.x - cube2.position.x) < 2.5){
+	  if (camera.position.x - cube2.position.x < 0){
+	    cube.position.x = camera.position.x +2.5;
+	  }
+	  else {
+	    cube.position.x = camera.position.x -2.5;
+	  }
+	}
+        gallery.position.x = cube.position.x;
+	*/
+	  if (Math.abs(camera.position.x - cube2.position.x) < 5){
+	    cube.position.x = camera.position.z +3;
+	  }
+	  gallery.position.z = cube.position.z;
+	
 	}
 	animate();
+
 
 	//controls
 	camera.position.z = 0.5;
