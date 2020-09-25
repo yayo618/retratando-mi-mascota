@@ -1,81 +1,57 @@
 <html>
   <head></head>
   <body>
-    <script type="module">
-	import * as THREE from "../gallery/js/three.module.js";
- 	import {GUI} from "../gallery/js/dat.gui.module.js";
-	import {MapControls} from "../gallery/js/OrbitControls.js";
-	
+    <script src="../threejs/three.min.js"></script>
+    <script src="camera-controls.js"></script>
+    <script>
+	CameraControls.install( { THREE: THREE } );
+	var clock = new THREE.Clock();
+
 	var scene, camera, renderer;
 	scene = new THREE.Scene();
 	camera = new THREE.PerspectiveCamera(60,
 		window.innerWidth/window.innerHeight);
+	camera.position.set( 0, 0, 0.5 );
         renderer = new THREE.WebGLRenderer();
         renderer.setSize(window.innerWidth,window.innerHeight);
         document.body.appendChild(renderer.domElement);
+
+	//cam controls?
+	var cameraControls = new CameraControls( camera, renderer.domElement );
+	cameraControls.verticalDragToForward = true;
+	cameraControls.maxPolarAngle = Math.PI/2;
+	cameraControls.minPolarAngle = Math.PI/2;
+	cameraControls.truckSpeed = 4;
 
 	var cube = new THREE.Mesh(
                 new THREE.BoxGeometry(0.5,0.5,0.5),
         new THREE.MeshBasicMaterial({color:0x00ff00}));
         scene.add(cube);
-	var cube2 = new THREE.Mesh(
-                new THREE.BoxGeometry(0.5,0.5,0.5),
-        new THREE.MeshBasicMaterial({color:0x00ff00}));
-	cube2.position.set(-2.5,0,-8);
 
-	//pared1
-	var pared1 = new THREE.Mesh(
-                new THREE.PlaneGeometry(5,3),
+	//pared1 y 2
+	var paredA = new THREE.Mesh(
+                new THREE.BoxGeometry(5,3,5),
                 new THREE.MeshBasicMaterial({color:0xffffff})
         );
-	pared1.position.set(-2.5,0,-3);
-	//pared2
-	var pared2 = new THREE.Mesh(
-                new THREE.PlaneGeometry(5,3),
-                new THREE.MeshBasicMaterial({color:0xffffff})
-        );
-	pared2.position.set(0,0,-5.5);
-	pared2.rotation.y = Math.PI/2;
+	paredA.position.set(-2.5,0,-5.5);
+	scene.add(paredA);
 
-	var gallery = new THREE.Group();
-	gallery.add(pared1,pared2,cube2);
-	scene.add(gallery);
+	cameraControls.colliderMeshes.push(paredA);
+
+	renderer.render( scene, camera );
 
 	var animate = function(){
-	requestAnimationFrame(animate);
-	renderer.render(scene,camera);
-	
-	  if (Math.abs(camera.position.z - cube2.position.z) < 5){
-	    cube.position.z = camera.position.z +3;
-	  }
-	/*
-	if (Math.abs(camera.position.x - cube2.position.x) < 2.5){
-	  if (camera.position.x - cube2.position.x < 0){
-	    cube.position.x = camera.position.x +2.5;
-	  }
-	  else {
-	    cube.position.x = camera.position.x -2.5;
-	  }
-	}
-        gallery.position.x = cube.position.x;
-	*/
-	  if (Math.abs(camera.position.x - cube2.position.x) < 5){
-	    cube.position.x = camera.position.z +3;
-	  }
-	  gallery.position.z = cube.position.z;
-	
+	  var delta = clock.getDelta();
+	  var elapsed = clock.getElapsedTime();
+	  //renderer.render(scene,camera);
+	  var updated = cameraControls.update( delta );//yom
+	  requestAnimationFrame(animate);
+		if (updated){
+		renderer.render( scene, camera );
+		}
 	}
 	animate();
 
-
-	//controls
-	camera.position.z = 0.5;
-	var controls = new MapControls(camera, renderer.domElement);
-	controls.enableZoom = false;
-	controls.panSpeed = 4;
-	controls.keyPanSpeed = 20;
-	controls.maxPolarAngle = Math.PI/2;
-	controls.minPolarAngle = Math.PI/2;
     </script>
   <body>
 </html>
