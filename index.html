@@ -2,13 +2,13 @@
   <head></head>
   <body>
     <div>
-	<button onclick="mover=true">mover izq</button>
-	<button onclick="mover=false,mover2=false">stop</button>
-	<button onclick="mover2=true">mover der</button>
+	<button onclick="stop(),moverIzq=true">mover izq</button>
+	<button onclick="stop()">stop</button>
+	<button onclick="stop(),moverDer=true">mover der</button>
     </div>
     <script src="../threejs/three.min.js"></script>
     <script>
-	var mover,mover2;
+	var moverIzq,moverDer;
 	var clock = new THREE.Clock();
 
 	var scene, camera, renderer;
@@ -35,15 +35,19 @@
 	paredA.position.set(-2.5,0,-5.5);
 	scene.add(paredA);
 
-
 	renderer.render( scene, camera );
+
+	var stop = function(){
+	  moverIzq=false;
+	  moverDer=false;
+	}
 
 	var animate = function(){
 	  requestAnimationFrame(animate);
-	    if (mover){
+	    if (moverIzq){
 		    camera.position.x -= 0.01;
 	    }
-	    if (mover2){
+	    if (moverDer){
 		    camera.position.x += 0.01;
 	    }
 	  renderer.render(scene,camera);
