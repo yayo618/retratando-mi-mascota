@@ -53,19 +53,31 @@
 	var animate = function(){
 	  requestAnimationFrame(animate);
 	    if (moverIzq){
-		    camera.position.x -= 0.01;
+		    camera.position.x -= 
+		    Math.cos(camera.rotation.y)*0.01;
+		    camera.position.z -=
+		    -Math.sin(camera.rotation.y)*0.01;
 	    }
 	    if (moverDer){
-		    camera.position.x += 0.01;
+		    camera.position.x += 
+		    Math.cos(camera.rotation.y)*0.01;
+		    camera.position.z +=
+		    -Math.sin(camera.rotation.y)*0.01;
 	    }
 	    if (moverAde){
-		    camera.position.z -= 0.01;
+		    camera.position.x -=
+		    -Math.sin(-camera.rotation.y)*0.01;
+		    camera.position.z -=
+		    Math.cos(-camera.rotation.y)*0.01;
 	    }
 	    if (moverAtr){
-		    camera.position.z += 0.01;
+		    camera.position.x +=
+		    -Math.sin(-camera.rotation.y)*0.01;
+		    camera.position.z +=
+		    Math.cos(-camera.rotation.y)*0.01;
 	    }
-	    if (rotaIz){camera.rotation.y += Math.PI*0.002;}
-	    if (rotaDe){camera.rotation.y -= Math.PI*0.002;}
+	    if (rotaIz){camera.rotation.y += Math.PI*0.001;}
+	    if (rotaDe){camera.rotation.y -= Math.PI*0.001;}
 	  renderer.render(scene,camera);
 	}
 	animate();
