@@ -24,8 +24,9 @@
 	cameraControls.truckSpeed = 4;
 
 	var cube = new THREE.Mesh(
-                new THREE.BoxGeometry(0.5,0.5,0.5),
+                new THREE.BoxGeometry(0.5,0.5,0.25),
         new THREE.MeshBasicMaterial({color:0x00ff00}));
+	cube.position.set(-2,0,-3);
         scene.add(cube);
 
 	//pared1 y 2
@@ -51,7 +52,19 @@
 		}
 	}
 	animate();
-
+/*	
+	const bbHelper = new THREE.Mesh(
+		new THREE.BoxGeometry( 5, 3, 5 ),
+		new THREE.MeshBasicMaterial( { color: 0x00ff00, wireframe: true } )
+	);
+	bbHelper.position.set(-2.5,0,-5.5);
+	scene.add( bbHelper );
+	const bb = new THREE.Box3(
+	  new THREE.Vector3( 5.0, 3.0, 5.0 ),
+	  new THREE.Vector3( 5.0, 3.0, 5.0 )
+	);
+	bb.position.set(-2.5,0,-5.5);
+	cameraControls.setBoundary( bb );*/
     </script>
   <body>
 </html>
