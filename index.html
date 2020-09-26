@@ -16,8 +16,8 @@
 	var clock = new THREE.Clock();
 	var blockZn = true;
 	var blockZp = true;
-	//var cameraRot = "mun.toString(camera.position.y)";
-//document.write(cameraRot);
+	var blockXn = true;
+	var blockXp = true;
 
 	var scene, camera, renderer;
 	scene = new THREE.Scene();
@@ -70,18 +70,34 @@
 	    
 	var collide = function (){
 	  if (camera.position.z<-2){
-			      if(Math.cos(camera.rotation.y)>0){
+	    if(Math.cos(camera.rotation.y)>0){
+		blockZp=true;
 		blockZn=false;
 	    }
-	    else if(
-		Math.cos(camera.rotation.y)<0
-
-			)
-			      {blockZp=false;}
+	    else if(Math.cos(camera.rotation.y)<0){
+		blockZn=true;
+		blockZp=false;
+	    }
 	  }
-	  else {blockZn=true;
-			blockZp=true;
-		      }
+	  else {
+		blockZn=true;
+		blockZp=true;
+	  }
+	
+	  if (camera.position.x<-6){
+	    if(Math.sin(camera.rotation.y)>0){
+		blockXp=true;
+		blockXn=false;
+	    }
+	    else if(Math.sin(camera.rotation.y)<0){
+		blockXn=true;
+		blockXp=false;
+	    }
+	  }
+	  else {
+		blockXn=true;
+		blockXp=true;
+	  }
 	}
 	 
 	var movXn = function (){
@@ -113,17 +129,17 @@
 		    -Math.sin(camera.rotation.y)*0.01;
 	    }
 	    if (moverAde){
-		    movXn();
+		if (blockXn){movXn();}
 		if (blockZn){movZn();}
 	    }
 	    if (moverAtr){
-		    movXp();
-				if (blockZp){movZp();}
+		if (blockXp){movXp();}
+		if (blockZp){movZp();}
 	    }
 	    if (rotaIz){camera.rotation.y += Math.PI*0.001;}
 	    if (rotaDe){camera.rotation.y -= Math.PI*0.001;}
 	  renderer.render(scene,camera);
-			    console.log(Math.sin(camera.rotation.y));
+	//console.log(Math.sin(camera.rotation.y));
 	}
 	animate();
 
