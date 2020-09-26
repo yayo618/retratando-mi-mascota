@@ -14,14 +14,17 @@
     <script>
 	var moverIzq,moverDer,moverAde,moverAtr,rotaIz,rotaDe;
 	var clock = new THREE.Clock();
-	var blockX = true;
-	var blockZ = true;
+	var blockZn = true;
+	var blockZp = true;
+	//var cameraRot = "mun.toString(camera.position.y)";
+//document.write(cameraRot);
 
 	var scene, camera, renderer;
 	scene = new THREE.Scene();
 	camera = new THREE.PerspectiveCamera(60,
 		window.innerWidth/window.innerHeight);
-	camera.position.set( 0, 0, 0.5 );
+	//camera.position.set( 0, 0, 0.5 );
+	//camera.rotation.y += Math.PI;
         renderer = new THREE.WebGLRenderer();
         renderer.setSize(window.innerWidth,window.innerHeight);
         document.body.appendChild(renderer.domElement);
@@ -30,8 +33,17 @@
 	var cube = new THREE.Mesh(
                 new THREE.BoxGeometry(0.5,0.5,0.25),
         	new THREE.MeshBasicMaterial({color:0x00ff00}));
-	cube.position.set(-2,0,-3);
+	cube.position.set(1,0,5.5);
         scene.add(cube);
+
+	meshFloor = new THREE.Mesh( 
+	            new THREE.PlaneGeometry(20,20,20,20),
+ 		    new THREE.MeshBasicMaterial({color:0xffffff,wireframe:true})
+ 	);
+	meshFloor.rotation.x -= Math.PI/2;
+	meshFloor.position.y = -1;
+	meshFloor.receiveShadow = true;
+	scene.add(meshFloor);
 
 	//pared1 y 2
 	var paredA = new THREE.Mesh(
@@ -55,19 +67,39 @@
 	  rotaIz=false;
 	  rotaDe=false;
 	}
-	var collide = function (){
-	    if (camera.position.z<-2){
-		blockZ=false;
-	    }
-	    else{
-		blockZ=true;
-	    }
-	}
 	    
+	var collide = function (){
+	  if (camera.position.z<-2){
+			      if(Math.cos(camera.rotation.y)>0){
+		blockZn=false;
+	    }
+	    else if(
+		Math.cos(camera.rotation.y)<0
+
+			)
+			      {blockZp=false;}
+	  }
+	  else {blockZn=true;
+			blockZp=true;
+		      }
+	}
+	 
+	var movXn = function (){
+		camera.position.x -=
+		-Math.sin(-camera.rotation.y)*0.01;}
+	var movXp = function (){
+		camera.position.x +=
+		-Math.sin(-camera.rotation.y)*0.01;}
+	var movZn = function (){
+		camera.position.z -=
+		Math.cos(-camera.rotation.y)*0.01;}
+	var movZp = function (){
+		camera.position.z +=
+		Math.cos(-camera.rotation.y)*0.01;}	
 
 	var animate = function(){
 	  requestAnimationFrame(animate);
-	collide();
+	  collide();
 	    if (moverIzq){
 		    camera.position.x -= 
 		    Math.cos(camera.rotation.y)*0.01;
@@ -81,28 +113,17 @@
 		    -Math.sin(camera.rotation.y)*0.01;
 	    }
 	    if (moverAde){
-		if(blockX){
-		    camera.position.x -=
-		    -Math.sin(-camera.rotation.y)*0.01;
-		}
-		if(blockZ){
-		    camera.position.z -=
-		    Math.cos(-camera.rotation.y)*0.01;
-		}
+		    movXn();
+		if (blockZn){movZn();}
 	    }
 	    if (moverAtr){
-		if(blockX){
-		    camera.position.x +=
-		    -Math.sin(-camera.rotation.y)*0.01;
-		}
-		if(blockZ){
-		    camera.position.z +=
-		    Math.cos(-camera.rotation.y)*0.01;
-		}
+		    movXp();
+				if (blockZp){movZp();}
 	    }
 	    if (rotaIz){camera.rotation.y += Math.PI*0.001;}
 	    if (rotaDe){camera.rotation.y -= Math.PI*0.001;}
 	  renderer.render(scene,camera);
+			    console.log(Math.sin(camera.rotation.y));
 	}
 	animate();
 
