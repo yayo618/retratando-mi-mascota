@@ -18,6 +18,10 @@
 	var blockZp = true;
 	var blockXn = true;
 	var blockXp = true;
+	var lblockZn = true;
+	var lblockZp = true;
+	var lblockXn = true;
+	var lblockXp = true;
 
 	var scene, camera, renderer;
 	scene = new THREE.Scene();
@@ -73,60 +77,72 @@
 	    if(Math.cos(camera.rotation.y)>0){
 		blockZp=true;
 		blockZn=false;
+		lblockZp=true;
+		lblockZn=false;
 	    }
 	    else if(Math.cos(camera.rotation.y)<0){
 		blockZn=true;
 		blockZp=false;
+		lblockZn=true;
+		lblockZp=false;
 	    }
 	  }
 	  else {
 		blockZn=true;
 		blockZp=true;
+		lblockZn=true;
+		lblockZp=true;
 	  }
 	
 	  if (camera.position.x<-6){
 	    if(Math.sin(camera.rotation.y)>0){
 		blockXp=true;
 		blockXn=false;
+		lblockXp=true;
+		lblockXn=false;
 	    }
 	    else if(Math.sin(camera.rotation.y)<0){
 		blockXn=true;
 		blockXp=false;
+		lblockXn=true;
+		lblockXp=false;
 	    }
 	  }
 	  else {
 		blockXn=true;
 		blockXp=true;
+		lblockXn=true;
+		lblockXp=true;
 	  }
 	}
 	 
-	var movXn = function (){
-		camera.position.x -=
+	var movXn = function (){camera.position.x -=
 		-Math.sin(-camera.rotation.y)*0.01;}
-	var movXp = function (){
-		camera.position.x +=
+	var movXp = function (){camera.position.x +=
 		-Math.sin(-camera.rotation.y)*0.01;}
-	var movZn = function (){
-		camera.position.z -=
+	var movZn = function (){camera.position.z -=
 		Math.cos(-camera.rotation.y)*0.01;}
-	var movZp = function (){
-		camera.position.z +=
+	var movZp = function (){camera.position.z +=
 		Math.cos(-camera.rotation.y)*0.01;}	
+	var lmovXn = function (){camera.position.x -=
+		Math.cos(camera.rotation.y)*0.01;}
+	var lmovXp = function (){camera.position.x +=
+		Math.cos(camera.rotation.y)*0.01;}
+	var lmovZn = function (){camera.position.z -=
+		-Math.sin(camera.rotation.y)*0.01;}
+	var lmovZp = function (){camera.position.z +=
+		-Math.sin(camera.rotation.y)*0.01;}	
 
 	var animate = function(){
 	  requestAnimationFrame(animate);
 	  collide();
 	    if (moverIzq){
-		    camera.position.x -= 
-		    Math.cos(camera.rotation.y)*0.01;
-		    camera.position.z -=
-		    -Math.sin(camera.rotation.y)*0.01;
+		if (lblockXn){lmovXn();}
+		if (lblockZn){lmovZn();}
 	    }
 	    if (moverDer){
-		    camera.position.x += 
-		    Math.cos(camera.rotation.y)*0.01;
-		    camera.position.z +=
-		    -Math.sin(camera.rotation.y)*0.01;
+		if (lblockXp){lmovXp();}
+		if (lblockZp){lmovZp();}
 	    }
 	    if (moverAde){
 		if (blockXn){movXn();}
