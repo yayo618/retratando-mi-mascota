@@ -2,11 +2,11 @@
   <head></head>
   <body>
     <div>
-	<button onclick="stop(),moverIzq=true">mover izq</button>
+	<button onclick="stop(),nStopM(),moverIzq=true">mover izq</button>
 	<button onclick="stop()">stop</button>
-	<button onclick="stop(),moverDer=true">mover der</button>
-	<button onclick="stop(),moverAde=true">mover ade</button>
-	<button onclick="stop(),moverAtr=true">mover atr</button>
+	<button onclick="stop(),nStopM(),moverDer=true">mover der</button>
+	<button onclick="stop(),nStopM(),moverAde=true">mover ade</button>
+	<button onclick="stop(),nStopM(),moverAtr=true">mover atr</button>
 	<button onclick="stop(),rotaIz=true">gira izq</button>
 	<button onclick="stop(),rotaDe=true">gira der</button>
     </div>
@@ -71,49 +71,48 @@
 	  rotaIz=false;
 	  rotaDe=false;
 	}
+	var nStopM = function(){
+	  blockZp=true;
+	  blockZn=true;
+	  blockXp=true;
+	  blockXn=true;
+	  lblockZp=true;
+	  lblockZn=true;
+	  lblockXp=true;
+	  lblockXn=true;
+	}
+
+	var restringeMZ = function (){
+	    if(Math.cos(camera.rotation.y)>0){
+		blockZn=false;
+		//lblockXn=false;
+	    }
+	    else if(Math.cos(camera.rotation.y)<0){
+		blockZp=false;
+		//lblockZp=false;
+	    }
+	}
+	var restringeMZL = function (){
+	    if(Math.sin(camera.rotation.y)>0){
+		//blockXp=false;
+		lblockZp=false;
+	    }
+	    else if(Math.sin(camera.rotation.y)<0){
+		//blockXpn=false;
+		lblockZn=false;
+	    }
+	}
 	    
 	var collide = function (){
 	  if (camera.position.z<-2){
-	    if(Math.cos(camera.rotation.y)>0){
-		blockZp=true;
-		blockZn=false;
-		lblockZp=true;
-		lblockZn=false;
-	    }
-	    else if(Math.cos(camera.rotation.y)<0){
-		blockZn=true;
-		blockZp=false;
-		lblockZn=true;
-		lblockZp=false;
-	    }
+		restringeMZL ();
+		restringeMZ ();
 	  }
-	  else {
-		blockZn=true;
-		blockZp=true;
-		lblockZn=true;
-		lblockZp=true;
-	  }
-	
+	  /*	
 	  if (camera.position.x<-6){
-	    if(Math.sin(camera.rotation.y)>0){
-		blockXp=true;
-		blockXn=false;
-		lblockXp=true;
-		lblockXn=false;
-	    }
-	    else if(Math.sin(camera.rotation.y)<0){
-		blockXn=true;
-		blockXp=false;
-		lblockXn=true;
-		lblockXp=false;
-	    }
+		restringeMX ();
 	  }
-	  else {
-		blockXn=true;
-		blockXp=true;
-		lblockXn=true;
-		lblockXp=true;
-	  }
+	   */
 	}
 	 
 	var movXn = function (){camera.position.x -=
@@ -156,6 +155,7 @@
 	    if (rotaDe){camera.rotation.y -= Math.PI*0.001;}
 	  renderer.render(scene,camera);
 	//console.log(Math.sin(camera.rotation.y));
+	//console.log(camera.position.x);
 	}
 	animate();
 
