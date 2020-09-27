@@ -50,15 +50,9 @@
 	scene.add(meshFloor);
 
 	//pared1 y 2
-	var paredA = new THREE.Mesh(
-                new THREE.BoxGeometry(5,3,5),
-                new THREE.MeshBasicMaterial({color:0xffffff}));
-	paredA.position.set(-2.5,0,-5.5);
-	scene.add(paredA);
 	var paredH = new THREE.Mesh(
-                new THREE.BoxGeometry(5,3,5),
+                new THREE.BoxGeometry(10,0.2,10),
                 new THREE.MeshBasicMaterial({color:0x00ff00,wireframe:true}));
-	paredH.position.set(-2.5,0,-5.5);
 	scene.add(paredH);
 
 	renderer.render( scene, camera );
@@ -82,55 +76,77 @@
 	  lblockXn=true;
 	}
 
-	var restringeMZ = function (){
-	    if(Math.cos(camera.rotation.y)>0){
-		blockZn=false;
-		//lblockXn=false;
-	    }
-	    else if(Math.cos(camera.rotation.y)<0){
-		blockZp=false;
-		//lblockZp=false;
-	    }
+	var restringeMZN = function (){
+	    if(Math.cos(camera.rotation.y)>0){blockZn=false;}
+	    else if(Math.cos(camera.rotation.y)<0){blockZp=false;}
 	}
-	var restringeMZL = function (){
-	    if(Math.sin(camera.rotation.y)>0){
-		//blockXp=false;
-		lblockZp=false;
-	    }
-	    else if(Math.sin(camera.rotation.y)<0){
-		//blockXpn=false;
-		lblockZn=false;
-	    }
+	var restringeMZNL = function (){
+	    if(Math.sin(camera.rotation.y)>0){lblockZp=false;}
+	    else if(Math.sin(camera.rotation.y)<0){lblockZn=false;}
+	}
+	var restringeMZP = function (){
+	    if(Math.cos(camera.rotation.y)>0){blockZp=false;}
+	    else if(Math.cos(camera.rotation.y)<0){blockZn=false;}
+	}
+	var restringeMZPL = function (){
+	    if(Math.sin(camera.rotation.y)>0){lblockZn=false;}
+	    else if(Math.sin(camera.rotation.y)<0){lblockZp=false;}
+	}
+	var restringeMXN = function (){
+	    if(Math.sin(camera.rotation.y)>0){blockXn=false;}
+	    else if(Math.sin(camera.rotation.y)<0){blockXp=false;}
+	}
+	var restringeMXNL = function (){
+	    if(Math.cos(camera.rotation.y)>0){lblockXn=false;}
+	    else if(Math.cos(camera.rotation.y)<0){lblockXp=false;}
+	}
+	var restringeMXP = function (){
+	    if(Math.sin(camera.rotation.y)>0){blockXp=false;}
+	    else if(Math.sin(camera.rotation.y)<0){blockXn=false;}
+	}
+	var restringeMXPL = function (){
+	    if(Math.cos(camera.rotation.y)>0){lblockXp=false;}
+	    else if(Math.cos(camera.rotation.y)<0){lblockXn=false;}
 	}
 	    
 	var collide = function (){
-	  if (camera.position.z<-2){
-		restringeMZL ();
-		restringeMZ ();
+	  if (camera.position.z<-5){
+		restringeMZN ();
+		restringeMZNL ();
 	  }
-	  /*	
-	  if (camera.position.x<-6){
-		restringeMX ();
+
+	  if (camera.position.x<-5){
+		restringeMXN ();
+		restringeMXNL ();
 	  }
-	   */
+
+	  if (camera.position.z>5){
+		restringeMZP ();
+		restringeMZPL ();
+	  }
+
+	  if (camera.position.x>5){
+		restringeMXP ();
+		restringeMXPL ();
+	  }
 	}
 	 
 	var movXn = function (){camera.position.x -=
-		-Math.sin(-camera.rotation.y)*0.01;}
+		-Math.sin(-camera.rotation.y)*0.02;}
 	var movXp = function (){camera.position.x +=
-		-Math.sin(-camera.rotation.y)*0.01;}
+		-Math.sin(-camera.rotation.y)*0.02;}
 	var movZn = function (){camera.position.z -=
-		Math.cos(-camera.rotation.y)*0.01;}
+		Math.cos(-camera.rotation.y)*0.02;}
 	var movZp = function (){camera.position.z +=
-		Math.cos(-camera.rotation.y)*0.01;}	
+		Math.cos(-camera.rotation.y)*0.02;}	
 	var lmovXn = function (){camera.position.x -=
-		Math.cos(camera.rotation.y)*0.01;}
+		Math.cos(camera.rotation.y)*0.02;}
 	var lmovXp = function (){camera.position.x +=
-		Math.cos(camera.rotation.y)*0.01;}
+		Math.cos(camera.rotation.y)*0.02;}
 	var lmovZn = function (){camera.position.z -=
-		-Math.sin(camera.rotation.y)*0.01;}
+		-Math.sin(camera.rotation.y)*0.02;}
 	var lmovZp = function (){camera.position.z +=
-		-Math.sin(camera.rotation.y)*0.01;}	
+		-Math.sin(camera.rotation.y)*0.02;}	
 
 	var animate = function(){
 	  requestAnimationFrame(animate);
@@ -151,8 +167,8 @@
 		if (blockXp){movXp();}
 		if (blockZp){movZp();}
 	    }
-	    if (rotaIz){camera.rotation.y += Math.PI*0.001;}
-	    if (rotaDe){camera.rotation.y -= Math.PI*0.001;}
+	    if (rotaIz){camera.rotation.y += Math.PI*0.002;}
+	    if (rotaDe){camera.rotation.y -= Math.PI*0.002;}
 	  renderer.render(scene,camera);
 	//console.log(Math.sin(camera.rotation.y));
 	//console.log(camera.position.x);
