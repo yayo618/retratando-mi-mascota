@@ -49,11 +49,40 @@
 	meshFloor.receiveShadow = true;
 	scene.add(meshFloor);
 
-	//pared1 y 2
-	var paredH = new THREE.Mesh(
-                new THREE.BoxGeometry(10,0.2,10),
+	//collision helper
+	var paredH1 = new THREE.Mesh(
+                new THREE.PlaneGeometry(10,0.2),
                 new THREE.MeshBasicMaterial({color:0x00ff00,wireframe:true}));
-	scene.add(paredH);
+	paredH1.rotation.y -= Math.PI/2;
+	paredH1.position.x = -5;
+	scene.add(paredH1);
+	var paredH2 = new THREE.Mesh(
+                new THREE.PlaneGeometry(10,0.2),
+                new THREE.MeshBasicMaterial({color:0x00ff00,wireframe:true}));
+	paredH2.rotation.y += Math.PI/2;
+	paredH2.position.x = 5;
+	scene.add(paredH2);
+	var paredH3 = new THREE.Mesh(
+                new THREE.PlaneGeometry(10,0.2),
+                new THREE.MeshBasicMaterial({color:0x00ff00,wireframe:true}));
+	paredH3.position.z = 5;
+	scene.add(paredH3);
+	var paredH4 = new THREE.Mesh(
+                new THREE.PlaneGeometry(10,0.2),
+                new THREE.MeshBasicMaterial({color:0x00ff00,wireframe:true}));
+	paredH4.position.z = -5;
+	scene.add(paredH4);
+	var paredH5 = new THREE.Mesh(
+                new THREE.PlaneGeometry(4,0.05),
+                new THREE.MeshBasicMaterial({color:0x0000ff}));
+	paredH5.position.set(-3,0,-1);
+	scene.add(paredH5);
+	var paredH6 = new THREE.Mesh(
+                new THREE.PlaneGeometry(4,0.05),
+                new THREE.MeshBasicMaterial({color:0x0000a0}));
+	paredH6.rotation.y += Math.PI/2;
+	paredH6.position.set(-1,0,-3);
+	scene.add(paredH6);
 
 	renderer.render( scene, camera );
 
@@ -129,24 +158,35 @@
 		restringeMXP ();
 		restringeMXPL ();
 	  }
+	  //collide azul
+	  if (camera.position.z<-1&&camera.position.x<-1){
+	    if (camera.position.x<-1.1){
+		restringeMZN();
+		restringeMZNL();
+	    }
+	    else if (camera.position.z<-1.1){
+		restringeMXN();
+		restringeMXNL();
+	    }
+	  }
 	}
 	 
 	var movXn = function (){camera.position.x -=
-		-Math.sin(-camera.rotation.y)*0.02;}
+		-Math.sin(-camera.rotation.y)*0.01;}
 	var movXp = function (){camera.position.x +=
-		-Math.sin(-camera.rotation.y)*0.02;}
+		-Math.sin(-camera.rotation.y)*0.01;}
 	var movZn = function (){camera.position.z -=
-		Math.cos(-camera.rotation.y)*0.02;}
+		Math.cos(-camera.rotation.y)*0.01;}
 	var movZp = function (){camera.position.z +=
-		Math.cos(-camera.rotation.y)*0.02;}	
+		Math.cos(-camera.rotation.y)*0.01;}	
 	var lmovXn = function (){camera.position.x -=
-		Math.cos(camera.rotation.y)*0.02;}
+		Math.cos(camera.rotation.y)*0.01;}
 	var lmovXp = function (){camera.position.x +=
-		Math.cos(camera.rotation.y)*0.02;}
+		Math.cos(camera.rotation.y)*0.01;}
 	var lmovZn = function (){camera.position.z -=
-		-Math.sin(camera.rotation.y)*0.02;}
+		-Math.sin(camera.rotation.y)*0.01;}
 	var lmovZp = function (){camera.position.z +=
-		-Math.sin(camera.rotation.y)*0.02;}	
+		-Math.sin(camera.rotation.y)*0.01;}	
 
 	var animate = function(){
 	  requestAnimationFrame(animate);
@@ -167,8 +207,8 @@
 		if (blockXp){movXp();}
 		if (blockZp){movZp();}
 	    }
-	    if (rotaIz){camera.rotation.y += Math.PI*0.002;}
-	    if (rotaDe){camera.rotation.y -= Math.PI*0.002;}
+	    if (rotaIz){camera.rotation.y += Math.PI*0.001;}
+	    if (rotaDe){camera.rotation.y -= Math.PI*0.001;}
 	  renderer.render(scene,camera);
 	//console.log(Math.sin(camera.rotation.y));
 	//console.log(camera.position.x);
