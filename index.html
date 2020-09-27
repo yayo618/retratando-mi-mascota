@@ -28,7 +28,7 @@
 	camera = new THREE.PerspectiveCamera(60,
 		window.innerWidth/window.innerHeight);
 	//camera.position.set( 0, 0, 0.5 );
-	//camera.rotation.y += Math.PI;
+	camera.rotation.y += Math.PI/4;
         renderer = new THREE.WebGLRenderer();
         renderer.setSize(window.innerWidth,window.innerHeight);
         document.body.appendChild(renderer.domElement);
@@ -73,16 +73,28 @@
 	paredH4.position.z = -5;
 	scene.add(paredH4);
 	var paredH5 = new THREE.Mesh(
-                new THREE.PlaneGeometry(4,0.05),
+                new THREE.PlaneGeometry(3.6,0.05),
                 new THREE.MeshBasicMaterial({color:0x0000ff}));
-	paredH5.position.set(-3,0,-1);
+	paredH5.position.set(-3.2,0,-1.4);
 	scene.add(paredH5);
 	var paredH6 = new THREE.Mesh(
-                new THREE.PlaneGeometry(4,0.05),
+                new THREE.PlaneGeometry(3.6,0.05),
                 new THREE.MeshBasicMaterial({color:0x0000a0}));
 	paredH6.rotation.y += Math.PI/2;
-	paredH6.position.set(-1,0,-3);
+	paredH6.position.set(-1.4,0,-3.2);
 	scene.add(paredH6);
+	var paredH7 = new THREE.Mesh(
+                new THREE.PlaneGeometry(2,0.05),
+                new THREE.MeshBasicMaterial({color:0xff0000}));
+	paredH7.position.set(-4,0,3);
+	paredH7.rotation.y += Math.PI;
+	scene.add(paredH7);
+	var paredH8 = new THREE.Mesh(
+                new THREE.PlaneGeometry(2,0.05),
+                new THREE.MeshBasicMaterial({color:0xa00000}));
+	paredH8.rotation.y += Math.PI/2;
+	paredH8.position.set(-3,0,4);
+	scene.add(paredH8);
 
 	renderer.render( scene, camera );
 
@@ -159,12 +171,23 @@
 		restringeMXPL ();
 	  }
 	  //collide azul
-	  if (camera.position.z<-1&&camera.position.x<-1){
-	    if (camera.position.x<-1.1){
+	  if (camera.position.z<-1.4&&camera.position.x<-1.4){
+	    if (camera.position.x<-1.5){
 		restringeMZN();
 		restringeMZNL();
 	    }
-	    else if (camera.position.z<-1.1){
+	    else if (camera.position.z<-1.5){
+		restringeMXN();
+		restringeMXNL();
+	    }
+	  }
+	  //collide rojo 
+	  if (camera.position.z>3&&camera.position.x<-3){
+	    if (camera.position.x<-3.1){
+		restringeMZP();
+		restringeMZPL();
+	    }
+	    else if (camera.position.z>3.1){
 		restringeMXN();
 		restringeMXNL();
 	    }
