@@ -1,7 +1,9 @@
 <html>
-  <head></head>
-  <body>
-    <div>
+  <head>
+	<link rel="stylesheet" href="./style.css">
+  </head>
+  <body ontouchstart="countTouches(event)" ontouchend="countTouches(event)">
+    <div class="info">
 	<button onclick="stop(),nStopM(),moverIzq=true">mover izq</button>
 	<button onclick="stop()">stop</button>
 	<button onclick="stop(),nStopM(),moverDer=true">mover der</button>
@@ -9,9 +11,15 @@
 	<button onclick="stop(),nStopM(),moverAtr=true">mover atr</button>
 	<button onclick="stop(),rotaIz=true">gira izq</button>
 	<button onclick="stop(),rotaDe=true">gira der</button>
+	<span id="demo">0</span>
     </div>
     <script src="../threejs/three.min.js"></script>
     <script>
+      function countTouches(event){
+	  var numToq = event.touches.length;
+	  document.getElementById("demo").innerHTML = numToq;
+      }
+      
 	var moverIzq,moverDer,moverAde,moverAtr,rotaIz,rotaDe;
 	var clock = new THREE.Clock();
 	var blockZn = true;
@@ -40,13 +48,8 @@
 	cube.position.set(1,0,5.5);
         scene.add(cube);
 
-	meshFloor = new THREE.Mesh( 
-	            new THREE.PlaneGeometry(20,20,20,20),
- 		    new THREE.MeshBasicMaterial({color:0xffffff,wireframe:true})
- 	);
-	meshFloor.rotation.x -= Math.PI/2;
+	meshFloor = new THREE.GridHelper(10,10);
 	meshFloor.position.y = -1;
-	meshFloor.receiveShadow = true;
 	scene.add(meshFloor);
 
 	//collision helper

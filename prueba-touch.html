@@ -1,0 +1,18 @@
+<html>
+  <head>
+    <title>prueba touchscreen</title>
+    <canvas id="areaTouch" width="600" 
+	    height="600" style="border:solid black 1px;"></canvas>
+  </head>
+    <body>
+      <script>
+	var elememtoTouch = document.getElementById("areaTouch");
+	elementoTouch.addEventListener('touchstart',function(event)){
+	  if (event.targetTouches.lenght == 1){
+	    var touch = event.targetTouches[0];
+	  alert("evento touch"+touch.pageX+touch.pageY);
+	  } 
+	},false;
+      </script>
+    <body>
+</html>
