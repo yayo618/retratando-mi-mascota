@@ -25,10 +25,12 @@
     <script>
       // _-_-_-_comienzo codigo del touch-_-_-_-
       var x,y,x1,y1;
+      var tocaono = false;
       function countTouches(event){
 	  var numToq = event.touches.length;
 	  document.getElementById("demo").innerHTML = numToq;
       }
+      
       function showCoordinates(event) {
           x = event.touches[0].clientX;
           y = event.touches[0].clientY;
@@ -53,6 +55,16 @@
 	  document.getElementById("demo6").innerHTML = slideIz;
 	  if (x1-x<0){slideDe = true;}
 	  document.getElementById("demo7").innerHTML = slideDe;
+        touchmovC();
+      }
+	    //implementando al movimiento de la camara
+      var touchmovC = function (){
+	if (tocaono){
+	  if (slideIz){
+		rotaIz=true;
+	  }
+			   // else {stop();}
+	}	
       }
       // _-_-_fin codigo del touch-_-_-_-
       
