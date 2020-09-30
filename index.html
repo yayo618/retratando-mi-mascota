@@ -25,54 +25,37 @@
     </div>
     <script src="../threejs/three.min.js"></script>
     <script>
-      // _-_-_-_comienzo codigo del touch-_-_-_-
-   const body = document.body;
-      body.addEventListener('touchstart', touchmovC);
-  //    body.addEventListener('touchend',countouches,touchFalse);
-    //  body.addEventListener('touchmove',showCoordinates,showMover);
-      //--(-_-)--\\
-      var x,y,x1,y1;
-      var tocaono = false;
-      function touchmovC(){rotaIz=true;}
-//	if (tocaono){
-//	  if (slideIz){
-//		rotaIz=true;
-//	  }
-			   // else {stop();}
-//	}	
-  //    }
-//      function countTouches(){
-//	  var numToq = event.touches.length;
-//	  document.getElementById("demo").innerHTML = numToq;
-//      }
+      //--(-_-)--\\ comienza codigo del touch
+	const body = document.body;
+	body.addEventListener('touchstart', startTouch, false);
+	body.addEventListener('touchend', levantaStop);
+	body.addEventListener('touchmove', moveTouch, false);
+        
+	var inX = null;
+	var inY = null;
       
-//      function showCoordinates() {
-        //  x = event.touches[0].clientX;
-      //    y = event.touches[0].clientY;
-  //        document.getElementById("demo2").innerHTML = x + ", " + y;
-    //  }
-  //    function touchTrue(){
-//	tocaono = true;
-//	document.getElementById("demo3").innerHTML = tocaono;
-        //  x1 = event.touches[0].clientX;
-      //    y1 = event.touches[0].clientY;
-    //    document.getElementById("demo4").innerHTML = x1 + ", " + y1;
-    //  }
-  //    function touchFalse(){
-//	  tocaono = false;
-//	document.getElementById("demo3").innerHTML = tocaono;
-  //      document.getElementById("demo5").innerHTML = x + ", " + y;
-    //  }
-  //    function showMover(){
-//	  var slideIz = false; 
-//	  var slideDe = false;
-//	  if (x1-x>0){slideIz = true;}
-//	  document.getElementById("demo6").innerHTML = slideIz;
-//	  if (x1-x<0){slideDe = true;}
-//	  document.getElementById("demo7").innerHTML = slideDe;
-    //    touchmovC();
-  //    }
-	    //implementando al movimiento de la camara
+	function startTouch(e){
+	  inX = e.touches[0].clientX;
+	  inY = e.touches[0].clientY;
+	}
+	function moveTouch(e){
+	  if (inX === null){return;}
+	  if (inY === null){return;}
+
+	  var cuX = e.touches[0].clientX;
+	  var cuY = e.touches[0].clientY;
+
+	  var x = inX - cuX;
+	  var y = inY - cuY;
+
+	  if (Math.abs(x)>Math.abs(y)){
+		if (x>0){stop(); rotaIz=true;}
+		if (x<0){stop(); rotaDe=true;}
+	  }
+	  inX = null;
+	  inY = null;
+	}
+	function levantaStop(){stop();}
 
       // _-_-_fin codigo del touch-_-_-_-
       
