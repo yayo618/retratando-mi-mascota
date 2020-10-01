@@ -2,26 +2,15 @@
   <head>
 	<link rel="stylesheet" href="./style.css">
   </head>
-  <!--
-  <body ontouchstart="countTouches(event),touchTrue(event)"
-	ontouchend="countTouches(event),touchFalse(event)"
-	ontouchmove="showCoordinates(event),showMover(event)"> -->
   <body>
     <div class="info">
-	<button onclick="stop(),nStopM(),moverIzq=true">mover izq</button>
-	<button onclick="stop()">stop</button>
-	<button onclick="stop(),nStopM(),moverDer=true">mover der</button>
-	<button onclick="stop(),nStopM(),moverAde=true">mover ade</button>
-	<button onclick="stop(),nStopM(),moverAtr=true">mover atr</button>
+	<button onclick="stop(),nStopM(),moverIzq=true">izquierda</button>
+	<!--<button onclick="stop()">stop</button>-->
+	<button onclick="stop(),nStopM(),moverDer=true">derecha</button>
+	<button onclick="stop(),nStopM(),moverAde=true">adelante</button>
+	<button onclick="stop(),nStopM(),moverAtr=true">atras</button>
 	<button onclick="stop(),rotaIz=true">gira izq</button>
 	<button onclick="stop(),rotaDe=true">gira der</button>
-<!--	<p>Numero de toques: <span id="demo">0</span></p>
-	<p>coordenadas: <span id="demo2"></span></p>
-	<p>toca la pantalla: <span id="demo3">WAITING</span></p>
-        <p>coordenadas al tocar: <span id="demo4">0</span></p>
-	<p>coor. cuando dejo de tocar: <span id="demo5">0</span></p>
-	<p>hay movimiento de la izquierda: <span id="demo6">WAITING</span></p>
-	<p>hay movimiento de la derecha: <span id="demo7">WAITING</span></p>-->
     </div>
     <script src="../threejs/three.min.js"></script>
     <script>
@@ -283,8 +272,8 @@
 		if (blockXp){movXp();}
 		if (blockZp){movZp();}
 	    }
-	    if (rotaIz){camera.rotation.y += Math.PI*0.001;}
-	    if (rotaDe){camera.rotation.y -= Math.PI*0.001;}
+	    if (rotaIz){camera.rotation.y += Math.PI*0.002;}
+	    if (rotaDe){camera.rotation.y -= Math.PI*0.002;}
 	  renderer.render(scene,camera);
 	//console.log(Math.sin(camera.rotation.y));
 	//console.log(camera.position.x);
