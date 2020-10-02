@@ -9,27 +9,74 @@ canvas {
 }
 
 .info {
-	color: #FFF;
 	position: absolute;
-	padding: 20px 0 0 20px;
+	//padding: 20px 0 0 20px;
+	text-align: center;
+	//bottom:20%;
+	//left:40%;
+	width:100%;
+	//height:auto;
 }
+.button {
+        background-color: #008cba;
+    	border-radius:50%;
+	font-size:48px;
+	border:5px blue;
+	opacity:0.4;
+	margin:-5px 10px;
 
+	-webkit-user-select:none;
+	-moz-user-select:none;
+	-ms-user-select:none;
+	-khtml-user-select:none;
+}
+.but5 {
+    height:50px;
+    width:50px;
+    background-image:url("arrow.png");
+}
+.but3 {
+    height:50px;
+    width:50px;
+    background-image:url("arrow.png");
+    transform:rotate(180deg);
+    -ms-transform:rotate(180deg);
+    -webkit-transform:rotate(180deg);
+}
+.but1 {
+    height:50px;
+    width:50px;
+    background-image:url("arrow.png");
+    transform:rotate(-90deg);
+    -ms-transform:rotate(-90deg);
+    -webkit-transform:rotate(-90deg);
+}
+.but4 {
+    height:50px;
+    width:50px;
+    background-image:url("arrow.png");
+    transform:rotate(90deg);
+    -ms-transform:rotate(90deg);
+    -webkit-transform:rotate(90deg);
+}
+.but2 {
+    height:50px;
+    width:50px;
+    background-image:url("arc.png");
+}
+.but6 {
+    height:50px;
+    width:50px;
+    background-image:url("arc.png");
+    transform:rotate(180deg);
+    -ms-transform:rotate(180deg);
+    -webkit-transform:rotate(180deg);
+}
 /*
-a {
-	color: inherit;
-}
-
-label {
-	cursor: pointer;
-}
-
-.ruler {	
-	pointer-events: none;	
-	position: absolute;	
-	top: 0;	
-	left: 0;	
-	right: 0;	
-	bottom: 0;	
-	background: url( "./ruler.png" ) no-repeat 0 0;	
+@media only screen and (orientation:portrait){
+    .info{
+	//display:none;
+	height:0%;
+    }
 }
 */

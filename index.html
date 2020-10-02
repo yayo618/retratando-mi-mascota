@@ -1,25 +1,30 @@
 <html>
   <head>
-	<link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
   <body>
     <div class="info">
-	<button onclick="stop(),nStopM(),moverIzq=true">izquierda</button>
+      <p>
+      	<button class="button but2" onclick="stop(),rotaIz=true"></button>
+	<button class="button but3" onclick="stop(),nStopM(),moverIzq=true"></button>
 	<!--<button onclick="stop()">stop</button>-->
-	<button onclick="stop(),nStopM(),moverDer=true">derecha</button>
-	<button onclick="stop(),nStopM(),moverAde=true">adelante</button>
-	<button onclick="stop(),nStopM(),moverAtr=true">atras</button>
-	<button onclick="stop(),rotaIz=true">gira izq</button>
-	<button onclick="stop(),rotaDe=true">gira der</button>
-    </div>
+	<button class="button but4" onclick="stop(),nStopM(),moverAtr=true"></button>
+	<button class="button but1" onclick="stop(),nStopM(),moverAde=true"></button>
+	<button class="button but5" onclick="stop(),nStopM(),moverDer=true"></button>
+	<button class="button but6" onclick="stop(),rotaDe=true"></button>
+      </p>
+    </div>    
+
     <script src="../threejs/three.min.js"></script>
     <script>
+      var keyboard ={};
       //--(-_-)--\\ comienza codigo del touch
 	const body = document.body;
 	body.addEventListener('touchstart', startTouch, false);
 	body.addEventListener('touchend', levantaStop);
 	body.addEventListener('touchmove', moveTouch, false);
-        
+      
 	var inX = null;
 	var inY = null;
       
@@ -55,9 +60,58 @@
 	}
 	function levantaStop(){stop();}
 
-      // _-_-_fin codigo del touch-_-_-_-
+      // _-_-_fin codigo del touch-_-empieza del mouse
+
+      body.addEventListener('mousedown',startMouse,false);
+      body.addEventListener('mouseup',levantaStop);
+      body.addEventListener('click',moveMouse,false);
+
+      function startMouse(e){
+	  imX = e.clientX;
+	  imY = e.clientY;
+
+      }
+      function moveMouse(e){
+//	  if (imX === null){return;}
+//	  if (imY === null){return;}
+	  var cwX = e.clientX;
+	  var cwY = e.clientY;
+	  var numCl = e.which;
+
+	  var x = imX - cwX;
+	  var y = imY - cwY;
+
+	  if (Math.abs(x)>Math.abs(y)){
+	      if (x>0){stop(); rotaIz=true;}
+	      else if (x<0){stop(); rotaDe=true;}
+	  }
+	  else{
+	      if (y<0){stop(); nStopM(); moverAde=true}
+	      else if (y>0){stop(); nStopM(); moverAtr=true}
+	  }
+/*
+	  if (numCl == 2){
+		if (x>0){stop(); rotaIz=true;}
+		else if (x<0){stop(); rotaDe=true;}
+	  }
+	  if (Math.abs(x)>Math.abs(y)&&numCl == 1){
+		if (x>0){stop(); nStopM(); moverDer=true}
+		else if (x<0){stop(); nStopM(); moverIzq=true}
+	  }
+	  else if (numCl=1){
+		if (y<0){stop(); nStopM(); moverAde=true}
+		else if (y>0){stop(); nStopM(); moverAtr=true}
+	  }
+
+	  iwX = null;
+	  iwY = null;
+
+	  console.log(numCl);
+*/
+      }
+      //fin-codigo-mouse
       
-	var moverIzq,moverDer,moverAde,moverAtr,rotaIz,rotaDe;
+      	var moverIzq,moverDer,moverAde,moverAtr,rotaIz,rotaDe;
 	var clock = new THREE.Clock();
 	var blockZn = true;
 	var blockZp = true;
@@ -189,28 +243,26 @@
 	    if(Math.cos(camera.rotation.y)>0){lblockXp=false;}
 	    else if(Math.cos(camera.rotation.y)<0){lblockXn=false;}
 	}
-	    
+
 	var collide = function (){
+	  //restringe movimmientos camara en x z
 	  if (camera.position.z<-5){
 		restringeMZN ();
 		restringeMZNL ();
 	  }
-
 	  if (camera.position.x<-5){
 		restringeMXN ();
 		restringeMXNL ();
 	  }
-
 	  if (camera.position.z>5){
 		restringeMZP ();
 		restringeMZPL ();
 	  }
-
 	  if (camera.position.x>5){
 		restringeMXP ();
 		restringeMXPL ();
 	  }
-	  //collide azul
+	  //camara collide con AZUL
 	  if (camera.position.z<-1.4&&camera.position.x<-1.4){
 	    if (camera.position.x<-1.5){
 		restringeMZN();
@@ -222,7 +274,7 @@
 	    }
 	    else {nStopM();}
 	  }
-	  //collide rojo 
+	  //camara collide con ROJO
 	  if (camera.position.z>3&&camera.position.x<-3){
 	    if (camera.position.x<-3.1){
 		restringeMZP();
@@ -235,7 +287,7 @@
 	    else {nStopM();}
 	  }
 	}
-	 
+        // movimientos camara en x z
 	var movXn = function (){camera.position.x -=
 		-Math.sin(-camera.rotation.y)*0.01;}
 	var movXp = function (){camera.position.x +=
@@ -274,12 +326,38 @@
 	    }
 	    if (rotaIz){camera.rotation.y += Math.PI*0.002;}
 	    if (rotaDe){camera.rotation.y -= Math.PI*0.002;}
-	  renderer.render(scene,camera);
-	//console.log(Math.sin(camera.rotation.y));
-	//console.log(camera.position.x);
+	    renderer.render(scene,camera);
+
+	          //teclado
+	    if (keyboard[37]){//left
+		stop(); rotaIz=true;}
+	    if (keyboard[39]){//right
+		stop(); rotaDe=true;}
+	    if (keyboard[87]){//w
+		stop(); nStopM(); moverAde=true;}
+	    if (keyboard[83]){//s
+		stop(); nStopM(); moverAtr=true;}
+	    if (keyboard[65]){//a
+		stop(); nStopM(); moverIzq=true;}
+	    if (keyboard[68]){//d
+		stop(); nStopM(); moverDer=true;}
 	}
 	animate();
+	//resize
+        window.addEventListener(
+	'resize',function(){
+	  renderer.setSize(window.innerWidth,window.innerHeight);
+	  camera.aspect = window.innerWidth/window.innerHeight;
+	  camera.updateProjectionMatrix();
+	});
 
+      //funciones del teclado
+      function keyDown(event){
+	  keyboard[event.keyCode] = true;}
+      function keyUp(event){
+	  keyboard[event.keyCode] = false; stop();}
+      window.addEventListener('keydown', keyDown);
+      window.addEventListener('keyup', keyUp);
     </script>
   <body>
 </html>
