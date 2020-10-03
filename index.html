@@ -17,6 +17,7 @@
     </div>    
 
     <script src="../threejs/three.min.js"></script>
+    <script src="./paredes.js"></script>
     <script>
       var keyboard ={};
       //--(-_-)--\\ comienza codigo del touch
@@ -89,25 +90,6 @@
 	      if (y<0){stop(); nStopM(); moverAde=true}
 	      else if (y>0){stop(); nStopM(); moverAtr=true}
 	  }
-/*
-	  if (numCl == 2){
-		if (x>0){stop(); rotaIz=true;}
-		else if (x<0){stop(); rotaDe=true;}
-	  }
-	  if (Math.abs(x)>Math.abs(y)&&numCl == 1){
-		if (x>0){stop(); nStopM(); moverDer=true}
-		else if (x<0){stop(); nStopM(); moverIzq=true}
-	  }
-	  else if (numCl=1){
-		if (y<0){stop(); nStopM(); moverAde=true}
-		else if (y>0){stop(); nStopM(); moverAtr=true}
-	  }
-
-	  iwX = null;
-	  iwY = null;
-
-	  console.log(numCl);
-*/
       }
       //fin-codigo-mouse
       
@@ -126,69 +108,17 @@
 	scene = new THREE.Scene();
 	camera = new THREE.PerspectiveCamera(60,
 		window.innerWidth/window.innerHeight);
-	//camera.position.set( 0, 0, 0.5 );
-	camera.rotation.y += Math.PI/4;
+	camera.position.x = 3;
+	//camera.rotation.y += Math.PI/4;
         renderer = new THREE.WebGLRenderer();
         renderer.setSize(window.innerWidth,window.innerHeight);
         document.body.appendChild(renderer.domElement);
+        //color fondo
+        scene.background = new THREE.Color(0xc7c7c7);
 
-
-	var cube = new THREE.Mesh(
-                new THREE.BoxGeometry(0.5,0.5,0.25),
-        	new THREE.MeshBasicMaterial({color:0x00ff00}));
-	cube.position.set(1,0,5.5);
-        scene.add(cube);
-
-	meshFloor = new THREE.GridHelper(20,20);
-	meshFloor.position.y = -1;
+	meshFloor = new THREE.GridHelper(50,50);
+        meshFloor.position.set(50,-1.5,0);
 	scene.add(meshFloor);
-
-	//collision helper
-	var paredH1 = new THREE.Mesh(
-                new THREE.PlaneGeometry(10,0.2),
-                new THREE.MeshBasicMaterial({color:0x00ff00,wireframe:true}));
-	paredH1.rotation.y -= Math.PI/2;
-	paredH1.position.x = -5;
-	scene.add(paredH1);
-	var paredH2 = new THREE.Mesh(
-                new THREE.PlaneGeometry(10,0.2),
-                new THREE.MeshBasicMaterial({color:0x00ff00,wireframe:true}));
-	paredH2.rotation.y += Math.PI/2;
-	paredH2.position.x = 5;
-	scene.add(paredH2);
-	var paredH3 = new THREE.Mesh(
-                new THREE.PlaneGeometry(10,0.2),
-                new THREE.MeshBasicMaterial({color:0x00ff00,wireframe:true}));
-	paredH3.position.z = 5;
-	scene.add(paredH3);
-	var paredH4 = new THREE.Mesh(
-                new THREE.PlaneGeometry(10,0.2),
-                new THREE.MeshBasicMaterial({color:0x00ff00,wireframe:true}));
-	paredH4.position.z = -5;
-	scene.add(paredH4);
-	var paredH5 = new THREE.Mesh(
-                new THREE.PlaneGeometry(3.6,0.05),
-                new THREE.MeshBasicMaterial({color:0x0000ff}));
-	paredH5.position.set(-3.2,0,-1.4);
-	scene.add(paredH5);
-	var paredH6 = new THREE.Mesh(
-                new THREE.PlaneGeometry(3.6,0.05),
-                new THREE.MeshBasicMaterial({color:0x0000a0}));
-	paredH6.rotation.y += Math.PI/2;
-	paredH6.position.set(-1.4,0,-3.2);
-	scene.add(paredH6);
-	var paredH7 = new THREE.Mesh(
-                new THREE.PlaneGeometry(2,0.05),
-                new THREE.MeshBasicMaterial({color:0xff0000}));
-	paredH7.position.set(-4,0,3);
-	paredH7.rotation.y += Math.PI;
-	scene.add(paredH7);
-	var paredH8 = new THREE.Mesh(
-                new THREE.PlaneGeometry(2,0.05),
-                new THREE.MeshBasicMaterial({color:0xa00000}));
-	paredH8.rotation.y += Math.PI/2;
-	paredH8.position.set(-3,0,4);
-	scene.add(paredH8);
 
 	renderer.render( scene, camera );
 
@@ -246,41 +176,41 @@
 
 	var collide = function (){
 	  //restringe movimmientos camara en x z
-	  if (camera.position.z<-5){
+	  if (camera.position.z<-36.75){
 		restringeMZN ();
 		restringeMZNL ();
 	  }
-	  if (camera.position.x<-5){
+	  if (camera.position.x<0){
 		restringeMXN ();
 		restringeMXNL ();
 	  }
-	  if (camera.position.z>5){
+	  if (camera.position.z>36.75){
 		restringeMZP ();
 		restringeMZPL ();
 	  }
-	  if (camera.position.x>5){
+	  if (camera.position.x>43){
 		restringeMXP ();
 		restringeMXPL ();
 	  }
 	  //camara collide con AZUL
-	  if (camera.position.z<-1.4&&camera.position.x<-1.4){
-	    if (camera.position.x<-1.5){
+	  if (camera.position.z<-4.25&&camera.position.x<27){
+	    if (camera.position.x<26.9){
 		restringeMZN();
 		restringeMZNL();
 	    }
-	    else if (camera.position.z<-1.5){
+	    else if (camera.position.z<-4.35){
 		restringeMXN();
 		restringeMXNL();
 	    }
 	    else {nStopM();}
 	  }
 	  //camara collide con ROJO
-	  if (camera.position.z>3&&camera.position.x<-3){
-	    if (camera.position.x<-3.1){
+	  if (camera.position.z>16.75&&camera.position.x<27){
+	    if (camera.position.x<26.9){
 		restringeMZP();
 		restringeMZPL();
 	    }
-	    else if (camera.position.z>3.1){
+	    else if (camera.position.z>16.85){
 		restringeMXN();
 		restringeMXNL();
 	    }
@@ -289,21 +219,21 @@
 	}
         // movimientos camara en x z
 	var movXn = function (){camera.position.x -=
-		-Math.sin(-camera.rotation.y)*0.01;}
+		-Math.sin(-camera.rotation.y)*0.02;}
 	var movXp = function (){camera.position.x +=
-		-Math.sin(-camera.rotation.y)*0.01;}
+		-Math.sin(-camera.rotation.y)*0.02;}
 	var movZn = function (){camera.position.z -=
-		Math.cos(-camera.rotation.y)*0.01;}
+		Math.cos(-camera.rotation.y)*0.02;}
 	var movZp = function (){camera.position.z +=
-		Math.cos(-camera.rotation.y)*0.01;}	
+		Math.cos(-camera.rotation.y)*0.02;}	
 	var lmovXn = function (){camera.position.x -=
-		Math.cos(camera.rotation.y)*0.01;}
+		Math.cos(camera.rotation.y)*0.02;}
 	var lmovXp = function (){camera.position.x +=
-		Math.cos(camera.rotation.y)*0.01;}
+		Math.cos(camera.rotation.y)*0.02;}
 	var lmovZn = function (){camera.position.z -=
-		-Math.sin(camera.rotation.y)*0.01;}
+		-Math.sin(camera.rotation.y)*0.02;}
 	var lmovZp = function (){camera.position.z +=
-		-Math.sin(camera.rotation.y)*0.01;}	
+		-Math.sin(camera.rotation.y)*0.02;}	
 
 	var animate = function(){
 	  requestAnimationFrame(animate);
