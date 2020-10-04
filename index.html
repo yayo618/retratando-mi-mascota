@@ -19,7 +19,7 @@
       </p>
     </div>    
 
-    <script src="../threejs/three.min.js"></script>
+    <script src="./three.min.js"></script>
     <script src="./paredes.js"></script>
     <script>
       var keyboard ={};
@@ -111,8 +111,8 @@
 	scene = new THREE.Scene();
 	camera = new THREE.PerspectiveCamera(60,
 		window.innerWidth/window.innerHeight);
-	camera.position.set(40,0,-30);
-	camera.rotation.y -= Math.PI/2;
+	camera.position.x = 3;
+	//camera.rotation.y -= Math.PI;
         renderer = new THREE.WebGLRenderer();
         renderer.setSize(window.innerWidth,window.innerHeight);
         document.body.appendChild(renderer.domElement);
