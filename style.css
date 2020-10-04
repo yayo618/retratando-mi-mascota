@@ -1,6 +1,7 @@
 body {
     margin: 0;
     touch-action: none;
+    overscroll-behavior:none;
 }
 
 canvas {
@@ -11,6 +12,7 @@ canvas {
 .info {
 	position: absolute;
 	//padding: 20px 0 0 20px;
+	box-sizing: border-box;
 	text-align: center;
 	//bottom:20%;
 	//left:40%;
@@ -33,12 +35,12 @@ canvas {
 .but5 {
     height:50px;
     width:50px;
-    background-image:url("arrow.png");
+    background-image:url("./img/arrow.png");
 }
 .but3 {
     height:50px;
     width:50px;
-    background-image:url("arrow.png");
+    background-image:url("./img/arrow.png");
     transform:rotate(180deg);
     -ms-transform:rotate(180deg);
     -webkit-transform:rotate(180deg);
@@ -46,7 +48,7 @@ canvas {
 .but1 {
     height:50px;
     width:50px;
-    background-image:url("arrow.png");
+    background-image:url("./img/arrow.png");
     transform:rotate(-90deg);
     -ms-transform:rotate(-90deg);
     -webkit-transform:rotate(-90deg);
@@ -54,7 +56,7 @@ canvas {
 .but4 {
     height:50px;
     width:50px;
-    background-image:url("arrow.png");
+    background-image:url("./img/arrow.png");
     transform:rotate(90deg);
     -ms-transform:rotate(90deg);
     -webkit-transform:rotate(90deg);
@@ -62,12 +64,12 @@ canvas {
 .but2 {
     height:50px;
     width:50px;
-    background-image:url("arc.png");
+    background-image:url("./img/arc.png");
 }
 .but6 {
     height:50px;
     width:50px;
-    background-image:url("arc.png");
+    background-image:url("./img/arc.png");
     transform:rotate(180deg);
     -ms-transform:rotate(180deg);
     -webkit-transform:rotate(180deg);

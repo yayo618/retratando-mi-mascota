@@ -1,4 +1,5 @@
 function init(){
+    //paredes
     var pared1 = new THREE.Mesh(
         new THREE.PlaneGeometry(25,3),
       	new THREE.MeshBasicMaterial({color:0xe7e7e7}));
@@ -39,6 +40,33 @@ function init(){
     pared7.rotation.y += Math.PI;
     pared7.position.set(12.5,0,18.75);
     scene.add(pared7);
+    //cuadro1
+    
+    var txrPic1 = new THREE.TextureLoader();
+    var pic1Txr = new txrPic1.load("img/cdr/j1.jpg");
+    var pic1 = new THREE.Mesh(
+	new THREE.PlaneGeometry(1.172,1),
+	new THREE.MeshBasicMaterial({color:0xffffff,map:pic1Txr})
+    );
+    pic1.position.set(2.5,0,-6.2);
+    scene.add(pic1);
+
+    var pic1B = new THREE.Mesh(
+	new THREE.BoxGeometry(1.172,1,0.05,0),
+	new THREE.MeshBasicMaterial({color:0x4b3e28})
+    );
+    pic1B.position.set(2.5,0,-6.225);
+    scene.add(pic1B);
+    //etiqueta1
+    var txrEtq1 = new THREE.TextureLoader();
+    var etq1Txr = new txrEtq1.load("img/etq/e1.jpg");
+    var etq1 = new THREE.Mesh(
+	new THREE.PlaneGeometry(0.607,0.25),
+	new THREE.MeshBasicMaterial({color:0xffffff,map:etq1Txr})
+    );
+    etq1.position.set(3.5,0,-6.245);
+    scene.add(etq1);
+    
 }
 
 window.onload = init;
