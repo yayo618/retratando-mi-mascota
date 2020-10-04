@@ -40,33 +40,39 @@ function init(){
     pared7.rotation.y += Math.PI;
     pared7.position.set(12.5,0,18.75);
     scene.add(pared7);
-    //cuadro1
-    
-    var txrPic1 = new THREE.TextureLoader();
-    var pic1Txr = new txrPic1.load("img/cdr/j1.jpg");
-    var pic1 = new THREE.Mesh(
-	new THREE.PlaneGeometry(1.172,1),
-	new THREE.MeshBasicMaterial({color:0xffffff,map:pic1Txr})
-    );
-    pic1.position.set(2.5,0,-6.2);
-    scene.add(pic1);
+    //cuadros y etq 1-9
+	var cdr,tx1,tx2,myImg,cdrB,etq,txq1,txq2;
+	myImg = new Image();
+    for (var i = 1;i < 10; i++){
+	myImg.src = "img/cdr/j"+i+".jpg";
 
-    var pic1B = new THREE.Mesh(
-	new THREE.BoxGeometry(1.172,1,0.05,0),
-	new THREE.MeshBasicMaterial({color:0x4b3e28})
-    );
-    pic1B.position.set(2.5,0,-6.225);
-    scene.add(pic1B);
-    //etiqueta1
-    var txrEtq1 = new THREE.TextureLoader();
-    var etq1Txr = new txrEtq1.load("img/etq/e1.jpg");
-    var etq1 = new THREE.Mesh(
-	new THREE.PlaneGeometry(0.607,0.25),
-	new THREE.MeshBasicMaterial({color:0xffffff,map:etq1Txr})
-    );
-    etq1.position.set(3.5,0,-6.245);
-    scene.add(etq1);
-    
+	tx1 = new THREE.TextureLoader();
+	tx2 = new tx1.load("img/cdr/j"+i+".jpg");
+	cdr = new THREE.Mesh(
+	  new THREE.PlaneGeometry(myImg.width/500,1),
+	  new THREE.MeshBasicMaterial({color:0xffffff,map:tx2})
+	);
+	cdr.position.set(i*2.5,0,-6.2);
+	scene.add(cdr);
+
+	cdrB = new THREE.Mesh(
+	  new THREE.BoxGeometry(myImg.width/500,1,0.05,0),
+	  new THREE.MeshBasicMaterial({color:0x4b3e28})
+	);
+	cdrB.position.set(i*2.5,0,-6.225);
+	scene.add(cdrB);
+
+	txq1 = new THREE.TextureLoader();
+	txq2 = new txq1.load("img/etq/e"+i+".jpg");
+	etq = new THREE.Mesh(
+	  new THREE.PlaneGeometry(0.607,0.25),
+	  new THREE.MeshBasicMaterial({color:0xffffff,map:txq2})
+	);
+	etq.position.set((i+0.4)*2.5,0,-6.245);
+	scene.add(etq);
+
+    }    
+       
 }
 
 window.onload = init;
