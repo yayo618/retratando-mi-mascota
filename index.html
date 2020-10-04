@@ -111,17 +111,17 @@
 	scene = new THREE.Scene();
 	camera = new THREE.PerspectiveCamera(60,
 		window.innerWidth/window.innerHeight);
-	camera.position.x = 3;
-	//camera.rotation.y += Math.PI/4;
+	camera.position.set(40,0,-30);
+	camera.rotation.y -= Math.PI/2;
         renderer = new THREE.WebGLRenderer();
         renderer.setSize(window.innerWidth,window.innerHeight);
         document.body.appendChild(renderer.domElement);
         //color fondo
         scene.background = new THREE.Color(0xc7c7c7);
-
+/*
 	meshFloor = new THREE.GridHelper(50,50);
         meshFloor.position.set(50,-1.5,0);
-	scene.add(meshFloor);
+	scene.add(meshFloor);*/
 
 	renderer.render( scene, camera );
 

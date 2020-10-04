@@ -70,9 +70,101 @@ function init(){
 	);
 	etq.position.set((i+0.4)*2.5,0,-6.245);
 	scene.add(etq);
+    }
+    //cuadros y etq 10-21
+    for (var i = 10;i < 22; i++){
+	myImg.src = "img/cdr/j"+i+".jpg";
 
-    }    
-       
+	tx1 = new THREE.TextureLoader();
+	tx2 = new tx1.load("img/cdr/j"+i+".jpg");
+	cdr = new THREE.Mesh(
+	  new THREE.PlaneGeometry(myImg.width/500,1),
+	  new THREE.MeshBasicMaterial({color:0xffffff,map:tx2})
+	);
+	cdr.position.set(25.05,0,-6.25-((i-9)*2.5));
+	cdr.rotation.y += Math.PI/2;
+	scene.add(cdr);
+
+	cdrB = new THREE.Mesh(
+	  new THREE.BoxGeometry(myImg.width/500,1,0.05,0),
+	  new THREE.MeshBasicMaterial({color:0x4b3e28})
+	);
+	cdrB.position.set(25.025,0,-6.25-((i-9)*2.5));
+	cdrB.rotation.y += Math.PI/2;
+	scene.add(cdrB);
+
+	txq1 = new THREE.TextureLoader();
+	txq2 = new txq1.load("img/etq/e"+i+".jpg");
+	etq = new THREE.Mesh(
+	  new THREE.PlaneGeometry(0.607,0.25),
+	  new THREE.MeshBasicMaterial({color:0xffffff,map:txq2})
+	);
+	etq.position.set(25.005,0,-6.25-((i-8.6)*2.5));
+	etq.rotation.y += Math.PI/2;
+	scene.add(etq);
+    }
+    //cuadros y etq 22-28
+    for (var i = 22;i < 29; i++){
+	myImg.src = "img/cdr/j"+i+".jpg";
+
+	tx1 = new THREE.TextureLoader();
+	tx2 = new tx1.load("img/cdr/j"+i+".jpg");
+	cdr = new THREE.Mesh(
+	  new THREE.PlaneGeometry(myImg.width/500,1),
+	  new THREE.MeshBasicMaterial({color:0xffffff,map:tx2})
+	);
+	cdr.position.set(25+((i-21)*2.5),0,-38.7);
+	scene.add(cdr);
+
+	cdrB = new THREE.Mesh(
+	  new THREE.BoxGeometry(myImg.width/500,1,0.05,0),
+	  new THREE.MeshBasicMaterial({color:0x4b3e28})
+	);
+	cdrB.position.set(25+((i-21)*2.5),0,-38.725);
+	scene.add(cdrB);
+
+	txq1 = new THREE.TextureLoader();
+	txq2 = new txq1.load("img/etq/e"+i+".jpg");
+	etq = new THREE.Mesh(
+	  new THREE.PlaneGeometry(0.607,0.25),
+	  new THREE.MeshBasicMaterial({color:0xffffff,map:txq2})
+	);
+	etq.position.set(25+((i-20.6)*2.5),0,-38.745);
+	scene.add(etq);
+    }
+    //cuadros y etq 29-59
+    for (var i = 29;i < 60; i++){
+	myImg.src = "img/cdr/j"+i+".jpg";
+
+	tx1 = new THREE.TextureLoader();
+	tx2 = new tx1.load("img/cdr/j"+i+".jpg");
+	cdr = new THREE.Mesh(
+	  new THREE.PlaneGeometry(myImg.width/500,1),
+	  new THREE.MeshBasicMaterial({color:0xffffff,map:tx2})
+	);
+	cdr.position.set(44.95,0,-38.75+((i-28)*2.5));
+	cdr.rotation.y -= Math.PI/2;
+	scene.add(cdr);
+
+	cdrB = new THREE.Mesh(
+	  new THREE.BoxGeometry(myImg.width/500,1,0.05,0),
+	  new THREE.MeshBasicMaterial({color:0x4b3e28})
+	);
+	cdrB.position.set(44.975,0,-38.75+((i-28)*2.5));
+	cdrB.rotation.y -= Math.PI/2;
+	scene.add(cdrB);
+
+	txq1 = new THREE.TextureLoader();
+	txq2 = new txq1.load("img/etq/e"+i+".jpg");
+	etq = new THREE.Mesh(
+	  new THREE.PlaneGeometry(0.607,0.25),
+	  new THREE.MeshBasicMaterial({color:0xffffff,map:txq2})
+	);
+	etq.position.set(44.995,0,-38.75+((i-27.6)*2.5));
+	etq.rotation.y -= Math.PI/2;
+	scene.add(etq);
+    }
+
 }
 
 window.onload = init;
